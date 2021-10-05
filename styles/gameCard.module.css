@@ -7,9 +7,32 @@
   border-radius: 0.5rem;
   margin: 1rem;
 }
+.title,
+.status {
+  text-align: center;
+}
 
 .image {
   position: relative;
   width: 100%;
   height: 10rem;
+}
+.status {
+  font-weight: bold;
+}
+
+.highProbabilty {
+  color: var(--green);
+}
+
+.mediumProbabilty {
+  color: var(--orange);
+}
+
+.lowProbabilty {
+  color: var(--red);
+}
+
+.range {
+  text-align: center;
 }
