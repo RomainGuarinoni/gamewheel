@@ -9,6 +9,9 @@
   margin: 0.5rem;
   cursor: pointer;
   transition: all ease 200ms;
+  position: sticky;
+  top: 20px;
+  z-index: 10;
 }
 
 .button:hover > .icon {

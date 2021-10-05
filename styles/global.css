@@ -6,6 +6,9 @@ html {
 
 :root {
   --main: #2196f3;
+  --green: #4caf50;
+  --orange: #ff9800;
+  --red: #f44336;
 }
 
 * {

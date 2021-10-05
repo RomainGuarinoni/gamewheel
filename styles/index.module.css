@@ -5,7 +5,8 @@
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  overflow: auto;
+  overflow-y: auto;
+  position: relative;
 }
 
 .gameContainer {
@@ -14,4 +15,5 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
+  padding: 2rem;
 }
