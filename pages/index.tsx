@@ -2,8 +2,11 @@ import Head from 'next/head';
 import styles from '../styles/index.module.css';
 import RunButton from '../components/runButton';
 import GameCard from '../components/gameCard';
+import { useState } from 'react';
 
 export default function Index(): JSX.Element {
+  const [run, setRun] = useState(false);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,7 +15,7 @@ export default function Index(): JSX.Element {
           rel='stylesheet'
         />
       </Head>
-      <RunButton />
+      <RunButton run={run} setRun={setRun} />
       <div className={styles.gameContainer}>
         <GameCard />
         <GameCard />

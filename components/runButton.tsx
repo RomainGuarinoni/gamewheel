@@ -1,3 +1,30 @@
-export default function playButton(): JSX.Element {
-  return <p>play</p>;
+import style from '../styles/runButton.module.css';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect } from 'react';
+
+export default function playButton({
+  run,
+  setRun,
+}: {
+  run: boolean;
+  setRun: (arg: boolean) => void;
+}): JSX.Element {
+  function setRunToTrue() {
+    console.log('click');
+    if (!run) {
+      setRun(true);
+    }
+  }
+
+  return (
+    <div
+      className={`${style.button} ${run ? style.isRunning : ''}`}
+      onClick={setRunToTrue}
+    >
+      <div className={`${style.icon} ${run ? style.isRunningLogo : ''}`}>
+        <FontAwesomeIcon icon={faPlay} />
+      </div>
+    </div>
+  );
 }

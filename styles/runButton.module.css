@@ -1,0 +1,45 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: all ease 200ms;
+}
+
+.button:hover > .icon {
+  color: var(--main);
+  animation: hoverEffect 0.5s cubic-bezier(0.99, 0.25, 0.38, 1.07);
+}
+
+.button:hover {
+  background-color: transparent;
+}
+
+@keyframes hoverEffect {
+  0% {
+    transform: rotate(0deg) scale(1.2);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1.8);
+  }
+}
+.icon {
+  transition: all ease 200ms;
+  color: white;
+}
+
+.isRunning {
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.isRunningLogo {
+  pointer-events: none;
+  color: rgba(128, 128, 128, 0.658);
+}
