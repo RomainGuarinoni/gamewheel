@@ -32,7 +32,7 @@ export default function gameCard({
       <div className={style.image}>
         <Image src={require(`../assets/${png}.png`)} />
       </div>
-      <p className={`${style.status} ${getColor(value)} `}>
+      <p className={`${style.status} ${getProba(proba)} `}>
         {Math.round(proba * 10) / 10} %
       </p>
       <div className={style.range}>
@@ -50,10 +50,10 @@ export default function gameCard({
   );
 }
 
-function getColor(value: number): string {
-  if (value < 25) {
+function getProba(proba: number): string {
+  if (proba < 10) {
     return style[Status.lowProbabilty];
-  } else if (value < 75) {
+  } else if (proba < 25) {
     return style[Status.mediumProbabilty];
   } else {
     return style[Status.highProbabilty];

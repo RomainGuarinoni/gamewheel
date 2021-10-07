@@ -1,4 +1,4 @@
-type Games = {
+export type Games = {
   title: string;
   default: number;
   png: string;
@@ -8,7 +8,7 @@ type Games = {
   setProba?: (arg: number) => void;
 }[];
 
-const games: Games = [
+const gamesDefault: Games = [
   {
     title: 'CS:GO',
     default: 70,
@@ -24,6 +24,31 @@ const games: Games = [
     default: 50,
     png: 'mhw',
   },
+  {
+    title: 'Echecs',
+    default: 5,
+    png: 'chess',
+  },
+  {
+    title: 'Osu!',
+    default: 5,
+    png: 'osu',
+  },
+  {
+    title: 'Payday',
+    default: 20,
+    png: 'payday',
+  },
+  {
+    title: 'Rocket League',
+    default: 5,
+    png: 'rocketleague',
+  },
+  {
+    title: 'The forest',
+    default: 20,
+    png: 'theforest',
+  },
 ];
 
-export default games;
+export default gamesDefault;
