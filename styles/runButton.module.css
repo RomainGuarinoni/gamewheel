@@ -14,24 +14,31 @@
   z-index: 10;
 }
 
+.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0%;
+  border: 0rem solid var(--main);
+  transition: all ease 200ms;
+  border-radius: 50%;
+}
+
+.button:hover::after {
+  border-width: 0.2rem;
+}
+
 .button:hover > .icon {
   color: var(--main);
-  animation: hoverEffect 0.5s cubic-bezier(0.99, 0.25, 0.38, 1.07);
+  transform: scale(1.2);
 }
 
 .button:hover {
-  background-color: transparent;
+  background-color: white;
 }
 
-@keyframes hoverEffect {
-  0% {
-    transform: rotate(0deg) scale(1.2);
-  }
-
-  100% {
-    transform: rotate(360deg) scale(1.8);
-  }
-}
 .icon {
   transition: all ease 200ms;
   color: white;
