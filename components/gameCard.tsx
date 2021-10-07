@@ -1,33 +1,48 @@
 import style from '../styles/gameCard.module.css';
 import Image from 'next/image';
-import { JSXElementConstructor, useState } from 'react';
 
 enum Status {
-  highProbabilty = 'Très probable',
-  mediumProbabilty = 'Probable',
-  lowProbabilty = 'Peu probable',
+  highProbabilty = 'highProbabilty',
+  mediumProbabilty = 'mediumProbabilty',
+  lowProbabilty = 'lowProbabilty',
 }
 
-const DEFAULT_PROBABILTY = 20;
-
-export default function gameCard(): JSX.Element {
-  const [probabilty, setProbabilty] = useState(DEFAULT_PROBABILTY);
-
+export default function gameCard({
+  title,
+  value,
+  setValue,
+  png,
+  proba,
+  setProba,
+  setSum,
+  sum,
+}: {
+  title: string;
+  value: number;
+  setValue: (arg: number) => void;
+  png: string;
+  proba: number;
+  setProba: (arg: number) => void;
+  setSum: (arg: number) => void;
+  sum: number;
+}): JSX.Element {
   return (
     <div className={style.container}>
-      <h2 className={style.title}>CSGO</h2>
+      <h2 className={style.title}>{title}</h2>
       <div className={style.image}>
-        <Image src={require('../assets/csgo.png')} />
+        <Image src={require(`../assets/${png}.png`)} />
       </div>
-      <p className={`${style.status} `}>{displayStatus(probabilty)}</p>
+      <p className={`${style.status} ${getColor(value)} `}>
+        {Math.round(proba * 10) / 10} %
+      </p>
       <div className={style.range}>
         <input
           type='range'
           min='0'
           max='100'
-          defaultValue={DEFAULT_PROBABILTY}
+          value={value}
           onChange={(e) => {
-            setProbabilty(parseInt(e.target.value));
+            setNewProba(setSum, sum, value, parseInt(e.target.value), setValue);
           }}
         />
       </div>
@@ -35,16 +50,23 @@ export default function gameCard(): JSX.Element {
   );
 }
 
-function displayStatus(proba: number): JSX.Element {
-  if (proba < 25) {
-    return <span className={style.lowProbabilty}>{Status.lowProbabilty}</span>;
-  } else if (proba < 75) {
-    return (
-      <span className={style.mediumProbabilty}>{Status.mediumProbabilty}</span>
-    );
+function getColor(value: number): string {
+  if (value < 25) {
+    return style[Status.lowProbabilty];
+  } else if (value < 75) {
+    return style[Status.mediumProbabilty];
   } else {
-    return (
-      <span className={style.highProbabilty}>{Status.highProbabilty}</span>
-    );
+    return style[Status.highProbabilty];
   }
+}
+
+function setNewProba(
+  setSum: (arg: number) => void,
+  sum: number,
+  previousValue: number,
+  newValue: number,
+  setValue: (arg: number) => void
+) {
+  setSum(sum + (newValue - previousValue));
+  setValue(newValue);
 }
