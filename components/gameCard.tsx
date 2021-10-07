@@ -12,8 +12,6 @@ export default function gameCard({
   value,
   setValue,
   png,
-  proba,
-  setProba,
   setSum,
   sum,
 }: {
@@ -21,11 +19,11 @@ export default function gameCard({
   value: number;
   setValue: (arg: number) => void;
   png: string;
-  proba: number;
-  setProba: (arg: number) => void;
   setSum: (arg: number) => void;
   sum: number;
 }): JSX.Element {
+  const proba = (value / sum) * 100;
+
   return (
     <div className={style.container}>
       <h2 className={style.title}>{title}</h2>

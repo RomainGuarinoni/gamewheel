@@ -31,18 +31,6 @@ export default function Index(): JSX.Element {
       .reduce((previous, current) => previous + current)
   );
 
-  games.forEach((game) => {
-    const [proba, setProba] = useState((game.value / sum) * 100);
-    game.proba = proba;
-    game.setProba = setProba;
-  });
-
-  useEffect(() => {
-    games.forEach((game) => {
-      game.setProba((game.value / sum) * 100);
-    });
-  }, [sum]);
-
   useEffect(() => {
     if (run) {
       localStorage.setItem('games', JSON.stringify(games));
@@ -51,6 +39,8 @@ export default function Index(): JSX.Element {
     }
   }, [run]);
 
+  // does not work now
+  // need to add preferences
   useEffect(() => {
     if (localStorage.getItem('games') !== null) {
       games = JSON.parse(localStorage.getItem('games'));
@@ -76,8 +66,6 @@ export default function Index(): JSX.Element {
             png={game.png}
             value={game.value}
             setValue={game.setValue}
-            proba={game.proba}
-            setProba={game.setProba}
             setSum={setSum}
             sum={sum}
           />
