@@ -4,6 +4,7 @@ import RunButton from '../components/runButton';
 import GameCard from '../components/gameCard';
 import { useEffect, useState } from 'react';
 import gamesDefault from '../utils/games';
+import Save from '../components/save';
 import type { Games } from '../utils/games';
 
 export default function Index(): JSX.Element {
@@ -34,7 +35,9 @@ export default function Index(): JSX.Element {
   useEffect(() => {
     if (run) {
       localStorage.setItem('games', JSON.stringify(games));
-      console.log(findTheGameWinner(games));
+      console.log(
+        games.filter(({ title }) => title == findTheGameWinner(games))
+      );
       setRun(false);
     }
   }, [run]);
@@ -57,6 +60,7 @@ export default function Index(): JSX.Element {
         />
         <title>Game wheel</title>
       </Head>
+      <Save />
       <RunButton run={run} setRun={setRun} />
       <div className={styles.gameContainer}>
         {games.map((game) => (
@@ -83,5 +87,6 @@ function findTheGameWinner(games: Games) {
     }
   });
 
-  return gameArray[Math.floor(Math.random() * gameArray.length)];
+  console.log(Math.floor(Math.random() * gameArray.length - 1));
+  return gameArray[Math.floor(Math.random() * gameArray.length - 1)];
 }
