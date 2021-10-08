@@ -14,6 +14,7 @@ export default function gameCard({
   png,
   setSum,
   sum,
+  run,
 }: {
   title: string;
   value: number;
@@ -21,11 +22,12 @@ export default function gameCard({
   png: string;
   setSum: (arg: number) => void;
   sum: number;
+  run: boolean;
 }): JSX.Element {
   const proba = (value / sum) * 100;
 
   return (
-    <div className={style.container}>
+    <div className={`${style.container} ${run ? style.disappear : ''}`}>
       <h2 className={style.title}>{title}</h2>
       <div className={style.image}>
         <Image src={require(`../assets/${png}.png`)} />
@@ -48,13 +50,13 @@ export default function gameCard({
   );
 }
 
-function getProba(proba: number): string {
+export function getProba(proba: number): string {
   if (proba < 10) {
-    return style[Status.lowProbabilty];
+    return Status.lowProbabilty;
   } else if (proba < 25) {
-    return style[Status.mediumProbabilty];
+    return Status.mediumProbabilty;
   } else {
-    return style[Status.highProbabilty];
+    return Status.highProbabilty;
   }
 }
 

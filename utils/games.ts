@@ -4,8 +4,6 @@ export type Games = {
   png: string;
   value?: number;
   setValue?: (arg: number) => void;
-  proba?: number;
-  setProba?: (arg: number) => void;
 }[];
 
 const gamesDefault: Games = [

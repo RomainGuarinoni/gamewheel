@@ -5,6 +5,7 @@ import GameCard from '../components/gameCard';
 import { useEffect, useState } from 'react';
 import gamesDefault from '../utils/games';
 import Save from '../components/save';
+import Winner from '../components/Winner';
 import type { Games } from '../utils/games';
 
 export default function Index(): JSX.Element {
@@ -12,10 +13,8 @@ export default function Index(): JSX.Element {
   const [run, setRun] = useState(false);
 
   let games = gamesDefault;
+  let [winner, setWinner] = useState<Games[number]>();
 
-  if (games.length == 0) {
-    return <p>WAIT ...</p>;
-  }
   //set up the different state value for each game
   games.forEach((game) => {
     const [value, setValue] = useState(game.default);
@@ -35,20 +34,18 @@ export default function Index(): JSX.Element {
   useEffect(() => {
     if (run) {
       localStorage.setItem('games', JSON.stringify(games));
-      console.log(
-        games.filter(({ title }) => title == findTheGameWinner(games))
-      );
+      setWinner(findTheGameWinner(games));
     }
   }, [run]);
 
   // does not work now
   // need to add preferences
-  useEffect(() => {
-    if (localStorage.getItem('games') !== null) {
-      games = JSON.parse(localStorage.getItem('games'));
-      console.log(games);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('games') !== null) {
+  //     games = JSON.parse(localStorage.getItem('games'));
+  //     console.log(games);
+  //   }
+  // }, []);
 
   return (
     <div className={styles.container}>
@@ -59,7 +56,8 @@ export default function Index(): JSX.Element {
         />
         <title>Game wheel</title>
       </Head>
-      {run && <Save />}
+      {run && winner && <Save />}
+      {run && winner && <Winner winner={winner} sum={sum} setRun={setRun} />}
       <RunButton run={run} setRun={setRun} />
       <div className={styles.gameContainer}>
         {games.map((game) => (
@@ -71,6 +69,7 @@ export default function Index(): JSX.Element {
             setValue={game.setValue}
             setSum={setSum}
             sum={sum}
+            run={run}
           />
         ))}
       </div>
@@ -86,6 +85,9 @@ function findTheGameWinner(games: Games) {
     }
   });
 
-  console.log(Math.floor(Math.random() * gameArray.length - 1));
-  return gameArray[Math.floor(Math.random() * gameArray.length - 1)];
+  console.log(gameArray.length);
+  const index = Math.floor(Math.random() * gameArray.length - 1);
+  console.log(index);
+
+  return games.find(({ title }) => title === gameArray[index]);
 }

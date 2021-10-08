@@ -22,18 +22,23 @@
   font-size: 2rem;
 }
 
-.highProbabilty {
-  color: var(--green);
-}
-
-.mediumProbabilty {
-  color: var(--orange);
-}
-
-.lowProbabilty {
-  color: var(--red);
-}
-
 .range {
   text-align: center;
+}
+
+.disappear {
+  animation: disappear 1.5s ease;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+    filter: grayscale(0%);
+    display: block;
+  }
+  to {
+    opacity: 0;
+    filter: grayscale(100%);
+    display: none;
+  }
 }

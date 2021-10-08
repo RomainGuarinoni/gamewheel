@@ -1,0 +1,64 @@
+.container {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  animation: enter 2s ease;
+  color: white;
+  background-color: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    filter: grayscale(100%) blur(0.5rem);
+  }
+  to {
+    opacity: 1;
+    filter: grayscale(0%) blur(0rem);
+  }
+}
+
+.title,
+.proba,
+.button {
+  z-index: 10;
+  position: relative;
+}
+
+.image {
+}
+.title {
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.proba {
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.pourcentage {
+  font-weight: bold;
+  font-size: 4rem;
+}
+
+.button {
+  background-color: var(--main);
+  padding: 0.8rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all ease 200ms;
+  border: none;
+  color: white;
+}
+
+.button:hover {
+  background-color: var(--dark-main);
+}
