@@ -38,7 +38,6 @@ export default function Index(): JSX.Element {
       console.log(
         games.filter(({ title }) => title == findTheGameWinner(games))
       );
-      setRun(false);
     }
   }, [run]);
 
@@ -60,7 +59,7 @@ export default function Index(): JSX.Element {
         />
         <title>Game wheel</title>
       </Head>
-      <Save />
+      {run && <Save />}
       <RunButton run={run} setRun={setRun} />
       <div className={styles.gameContainer}>
         {games.map((game) => (

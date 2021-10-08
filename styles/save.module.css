@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  top: -5rem;
+  bottom: -5rem;
   z-index: 10;
   right: 2rem;
   border-radius: 1rem;
@@ -12,7 +12,7 @@
   padding: 0 0.5rem;
   width: 10rem;
   height: 3rem;
-  animation: enter-leave 3s ease;
+  animation: enter-leave 1.5s ease;
 }
 .p {
   margin: 0 0.5rem;
@@ -20,17 +20,17 @@
 
 @keyframes enter-leave {
   0% {
-    top: -5rem;
+    bottom: -5rem;
   }
   20% {
-    top: 1rem;
+    bottom: 1rem;
   }
 
   80% {
-    top: 1rem;
+    bottom: 1rem;
   }
 
   100% {
-    top: -5rem;
+    bottom: -5rem;
   }
 }
