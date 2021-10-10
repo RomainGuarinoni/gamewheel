@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.container p {
+  margin: 0 0.5rem;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.container p:first-of-type {
+  color: var(--red);
+}
+
+.container p:last-of-type {
+  color: var(--green);
+}

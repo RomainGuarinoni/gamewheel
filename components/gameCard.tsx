@@ -1,4 +1,5 @@
 import style from '../styles/gameCard.module.css';
+import Slider from './slider';
 import Image from 'next/image';
 
 enum Status {
@@ -35,17 +36,10 @@ export default function gameCard({
       <p className={`${style.status} ${getProba(proba)} `}>
         {Math.round(proba * 10) / 10} %
       </p>
-      <div className={style.range}>
-        <input
-          type='range'
-          min='0'
-          max='100'
-          value={value}
-          onChange={(e) => {
-            setNewProba(setSum, sum, value, parseInt(e.target.value), setValue);
-          }}
-        />
-      </div>
+      <Slider
+        value={value}
+        onChange={(e) => setNewProba(setSum, sum, value, e, setValue)}
+      />
     </div>
   );
 }

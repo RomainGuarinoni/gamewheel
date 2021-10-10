@@ -12,7 +12,7 @@ export default function Index(): JSX.Element {
   // State set to tru when the wheel is running, false when not
   const [run, setRun] = useState(false);
 
-  let games = gamesDefault;
+  let [games, setGames] = useState<Games>(gamesDefault);
   let [winner, setWinner] = useState<Games[number]>();
 
   //set up the different state value for each game
@@ -40,12 +40,13 @@ export default function Index(): JSX.Element {
 
   // does not work now
   // need to add preferences
-  // useEffect(() => {
-  //   if (localStorage.getItem('games') !== null) {
-  //     games = JSON.parse(localStorage.getItem('games'));
-  //     console.log(games);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem('games') !== null) {
+      setGames(JSON.parse(localStorage.getItem('games')));
+      console.log(JSON.parse(localStorage.getItem('games')));
+      console.log(games);
+    }
+  }, []);
 
   return (
     <div className={styles.container}>

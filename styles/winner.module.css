@@ -25,6 +25,15 @@
   }
 }
 
+@keyframes enter-text {
+  from {
+    top: -2rem;
+  }
+  to {
+    top: 0;
+  }
+}
+
 .title,
 .proba,
 .button {
