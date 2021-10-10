@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import gamesDefault from '../utils/games';
 import Save from '../components/save';
 import Winner from '../components/Winner';
+import Loader from '../components/loader';
 import type { Games } from '../utils/games';
 
 export default function Index(): JSX.Element {
@@ -43,13 +44,13 @@ export default function Index(): JSX.Element {
   useEffect(() => {
     if (localStorage.getItem('games') !== null) {
       setGames(JSON.parse(localStorage.getItem('games')));
-      console.log(JSON.parse(localStorage.getItem('games')));
-      console.log(games);
+    } else {
+      setGames(gamesDefault);
     }
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <link
           href='https://fonts.googleapis.com/css2?family=Inter&display=optional'
@@ -57,23 +58,27 @@ export default function Index(): JSX.Element {
         />
         <title>Game wheel</title>
       </Head>
-      {run && winner && <Save />}
-      {run && winner && <Winner winner={winner} sum={sum} setRun={setRun} />}
-      <RunButton run={run} setRun={setRun} />
-      <div className={styles.gameContainer}>
-        {games.map((game) => (
-          <GameCard
-            key={game.title}
-            title={game.title}
-            png={game.png}
-            value={game.value}
-            setValue={game.setValue}
-            setSum={setSum}
-            sum={sum}
-            run={run}
-          />
-        ))}
+      (
+      <div className={styles.container}>
+        {run && winner && <Save />}
+        {run && winner && <Winner winner={winner} sum={sum} setRun={setRun} />}
+        <RunButton run={run} setRun={setRun} />
+        <div className={styles.gameContainer}>
+          {games.map((game) => (
+            <GameCard
+              key={game.title}
+              title={game.title}
+              png={game.png}
+              value={game.value}
+              setValue={game.setValue}
+              setSum={setSum}
+              sum={sum}
+              run={run}
+            />
+          ))}
+        </div>
       </div>
+      {/* ){gamesDefault == null && <Loader />} */}
     </div>
   );
 }
