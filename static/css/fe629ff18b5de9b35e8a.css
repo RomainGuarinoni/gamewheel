@@ -1,0 +1,1 @@
+:root{--main:#2196f3;--dark-main:#01579b;--green:#4caf50;--orange:#ff9800;--red:#f44336;--black:#212121}body,html{margin:0;padding:0;color:var(--black)}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:Roboto}.highProbabilty{color:var(--green)}.mediumProbabilty{color:var(--orange)}.lowProbabilty{color:var(--red)}
