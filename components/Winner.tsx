@@ -14,7 +14,6 @@ export default function Winner({
 }): JSX.Element {
   const image = require(`../assets/${winner.png}.png`);
 
-  console.log(image);
   return (
     <div className={style.container}>
       <h2 className={style.title}> {winner.title} </h2>

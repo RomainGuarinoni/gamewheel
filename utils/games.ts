@@ -9,7 +9,7 @@ export type Games = {
 const gamesDefault: Games = [
   {
     title: 'CS:GO',
-    default: 70,
+    default: 0,
     png: 'csgo',
   },
   {

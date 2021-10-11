@@ -25,12 +25,14 @@
   }
 }
 
-@keyframes enter-text {
+@keyframes enterText {
   from {
     top: -2rem;
+    opacity: 0;
   }
   to {
     top: 0;
+    opacity: 1;
   }
 }
 
@@ -41,8 +43,6 @@
   position: relative;
 }
 
-.image {
-}
 .title {
   font-weight: bold;
   font-size: 5rem;

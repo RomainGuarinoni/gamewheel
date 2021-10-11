@@ -11,7 +11,6 @@ export default function playButton({
   setRun: (arg: boolean) => void;
 }): JSX.Element {
   function setRunToTrue() {
-    console.log('click');
     if (!run) {
       setRun(true);
     }

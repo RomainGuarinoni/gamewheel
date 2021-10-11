@@ -11,7 +11,11 @@ export default function Slider({
 }): JSX.Element {
   return (
     <div className={style.container}>
-      <p>
+      <p
+        style={{
+          transform: `scale(${2 - value / 50})`,
+        }}
+      >
         <FontAwesomeIcon icon={faThumbsDown} />
       </p>
       <input
@@ -21,7 +25,11 @@ export default function Slider({
         value={value}
         onChange={(e) => onChange(parseInt(e.target.value))}
       />
-      <p>
+      <p
+        style={{
+          transform: `scale(${value / 50})`,
+        }}
+      >
         <FontAwesomeIcon icon={faThumbsUp} />
       </p>
     </div>
