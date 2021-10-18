@@ -15,11 +15,13 @@ export default function Index(): JSX.Element {
     if (localStorage.getItem('games') !== null) {
       const localStorageGames = JSON.parse(localStorage.getItem('games'));
       console.log('PRESET', localStorageGames);
-      setGames(localStorageGames);
+      setGames(gamesDefault);
     } else {
       setGames(gamesDefault);
     }
   }, []);
+
+  //set up the animation class
 
   return (
     <div>

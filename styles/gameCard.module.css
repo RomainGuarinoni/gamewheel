@@ -6,6 +6,7 @@
   height: 25rem;
   border-radius: 0.5rem;
   margin: 1rem;
+  transition: filter ease 50ms, transform ease 200ms;
 }
 .title,
 .status {
@@ -27,18 +28,24 @@
 }
 
 .disappear {
-  animation: disappear 1.5s ease;
+  /* animation: disappear 1.5s ease; */
+  filter: brightness(40%);
 }
 
-@keyframes disappear {
-  from {
-    opacity: 1;
-    filter: grayscale(0%);
-    display: block;
-  }
-  to {
-    opacity: 0;
-    filter: grayscale(100%);
-    display: none;
-  }
+.cardAnimation {
+  filter: brightness(20%);
+}
+
+.winner {
+  filter: brightness(100%);
+  transform: scale(1.1);
+}
+
+.looser {
+  filter: brightness(20%);
+  transform: scale(0.9);
+}
+
+.runAnimation {
+  filter: brightness(80%);
 }
