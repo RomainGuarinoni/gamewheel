@@ -31,6 +31,7 @@ export default function gameCard({
   delay: number;
 }): JSX.Element {
   const proba = (value / sum) * 100;
+  runAnimation ? console.log('run animation haqs changed to true') : null;
   return (
     <div
       className={`${style.container} ${run ? style.cardAnimation : ''}`}
