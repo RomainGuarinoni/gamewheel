@@ -32,15 +32,16 @@ async function runAllAnimation(games: Games, timing: number) {
  * @param {Games} games  an array of all the games
  * @param {number} loopFast  the number of loops with fast delay
  * @param {number} loopSlow  the number of loops with slow delay
+ * @param {(arg: boolean) => void} setFinish a setState function to indicate the end of the animation
  */
 
 async function loopAnimation(
   games: Games,
   winner: Games[number],
   loopFast: number,
-  loopSlow: number
+  loopSlow: number,
+  setFinish: (arg: boolean) => void
 ) {
-  console.log(winner.title);
   for (let i = 0; i < loopFast; i++) {
     await runAllAnimation(games, ANIMATION_FAST_TIME);
   }
@@ -61,6 +62,7 @@ async function loopAnimation(
       setWinner(WinnerState.looser);
     }
   });
+  setFinish(true);
 }
 
 export default loopAnimation;
