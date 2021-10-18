@@ -1,6 +1,7 @@
 import style from '../styles/gameCard.module.css';
 import Slider from './slider';
 import Image from 'next/image';
+import { ANIMATION_TIME } from '../utils/animation';
 
 enum Status {
   highProbabilty = 'highProbabilty',
@@ -16,6 +17,8 @@ export default function gameCard({
   setSum,
   sum,
   run,
+  runAnimation,
+  delay,
 }: {
   title: string;
   value: number;
@@ -24,11 +27,21 @@ export default function gameCard({
   setSum: (arg: number) => void;
   sum: number;
   run: boolean;
+  runAnimation: boolean;
+  delay: number;
 }): JSX.Element {
   const proba = (value / sum) * 100;
-
   return (
-    <div className={`${style.container} ${run ? style.disappear : ''}`}>
+    <div
+      className={`${style.container} ${run ? style.cardAnimation : ''}`}
+      style={
+        runAnimation
+          ? {
+              animation: `${style.cardSelected} ${ANIMATION_TIME}s ease ${delay}s `,
+            }
+          : {}
+      }
+    >
       <h2 className={style.title}>{title}</h2>
       <div className={style.image}>
         <Image src={require(`../assets/${png}.png`)} />

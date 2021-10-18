@@ -27,18 +27,25 @@
 }
 
 .disappear {
-  animation: disappear 1.5s ease;
+  /* animation: disappear 1.5s ease; */
+  filter: brightness(40%);
 }
 
-@keyframes disappear {
-  from {
-    opacity: 1;
-    filter: grayscale(0%);
-    display: block;
+.cardAnimation {
+  filter: brightness(40%);
+}
+
+@keyframes cardSelected {
+  0% {
+    filter: brightness(40%);
   }
-  to {
-    opacity: 0;
-    filter: grayscale(100%);
-    display: none;
+  25% {
+    filter: brightness(100%);
+  }
+  75% {
+    filter: brightness(100%);
+  }
+  100% {
+    filter: brightness(40%);
   }
 }
