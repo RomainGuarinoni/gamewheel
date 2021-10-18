@@ -1,27 +1,66 @@
 import { Games } from './games';
 
-export const ANIMATION_TIME = 0.2;
+export const ANIMATION_FAST_TIME = 0.1;
 
-function runAnimation(setAnimation: (arg: boolean) => void) {
+export const ANIMATION_SLOW_TIME = 0.2;
+
+export enum WinnerState {
+  inProgress,
+  winner,
+  looser,
+}
+
+function runAnimation(setAnimation: (arg: boolean) => void, timing: number) {
   return new Promise<void>((resolve) => {
     setAnimation(true);
     setTimeout(() => {
       setAnimation(false);
       resolve();
-    }, ANIMATION_TIME * 1000);
+    }, timing * 1000);
   });
 }
 
-async function runAllAnimation(games: Games) {
+async function runAllAnimation(games: Games, timing: number) {
   for (let i = 0; i < games.length; i++) {
-    await runAnimation(games[i].setAnimation);
+    await runAnimation(games[i].setAnimation, timing);
   }
 }
 
-function loopAnimation(games: Games, loop: number) {
-  for (let i = 0; i < loop; i++) {
-    runAllAnimation(games);
+/**
+ *
+ * @description Run the wheel animation
+ * @param {Games} games  an array of all the games
+ * @param {number} loopFast  the number of loops with fast delay
+ * @param {number} loopSlow  the number of loops with slow delay
+ */
+
+async function loopAnimation(
+  games: Games,
+  winner: Games[number],
+  loopFast: number,
+  loopSlow: number
+) {
+  console.log(winner.title);
+  for (let i = 0; i < loopFast; i++) {
+    await runAllAnimation(games, ANIMATION_FAST_TIME);
   }
+  for (let i = 0; i < loopSlow; i++) {
+    await runAllAnimation(games, ANIMATION_SLOW_TIME);
+  }
+
+  const winnerIndex = games.findIndex(({ title }) => title === winner.title);
+
+  for (let i = 0; i <= winnerIndex; i++) {
+    await runAnimation(games[i].setAnimation, ANIMATION_SLOW_TIME);
+  }
+
+  games.forEach(({ setWinner }, index) => {
+    if (index == winnerIndex) {
+      setWinner(WinnerState.winner);
+    } else {
+      setWinner(WinnerState.looser);
+    }
+  });
 }
 
 export default loopAnimation;

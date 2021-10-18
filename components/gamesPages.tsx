@@ -3,22 +3,24 @@ import RunButton from './runButton';
 import GameCard from './gameCard';
 import { useEffect, useRef, useState } from 'react';
 import Save from './save';
-import { ANIMATION_TIME } from '../utils/animation';
+import loopAnimation from '../utils/animation';
 import type { Games } from '../utils/games';
+import { WinnerState } from '../utils/animation';
 
 export default function GamesPages({ games }: { games: Games }): JSX.Element {
   // State set to true when the wheel is running, false when not
   const [run, setRun] = useState(false);
-  const [runAnimation, setRunAnimation] = useState(false);
-  const [winner, setWinner] = useState<Games[number]>();
-
-  const gamesContainerRef = useRef<HTMLDivElement>();
-  const tl = useRef<any>();
 
   games.forEach((game) => {
     const [value, setValue] = useState(game?.value | game.default);
+    const [animation, setAnimation] = useState(false);
+    const [winner, setWinner] = useState(WinnerState.inProgress);
     game.value = value;
     game.setValue = setValue;
+    game.animation = animation;
+    game.setAnimation = setAnimation;
+    game.winner = winner;
+    game.setWinner = setWinner;
   });
 
   //sum is the sum of each value of each game
@@ -30,37 +32,19 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
       .reduce((previous, current) => previous + current)
   );
 
-  async function playAnimationAsync() {
-    for (let i = 0; i < 3; i++) {
-      console.log(runAnimation);
-      await playAnimation();
-    }
-  }
-
-  function playAnimation() {
-    return new Promise<void>((resolve) => {
-      setRunAnimation(true);
-      setTimeout(() => {
-        setRunAnimation(false);
-        resolve();
-      }, ANIMATION_TIME * 1000 * games.length);
-    });
-  }
-
   useEffect(() => {
     if (run) {
       //find a winner
 
-      setWinner(findTheGameWinner(games));
-      playAnimationAsync();
+      const winner = findTheGameWinner(games);
+      loopAnimation(games, winner, 3, 2);
     }
   }, [run]);
   return (
     <div className={styles.container}>
-      {run && winner && <Save />}
-      {/* {run && winner && <Winner winner={winner} sum={sum} setRun={setRun} />} */}
+      {run && <Save />}
       <RunButton run={run} setRun={setRun} />
-      <div className={styles.gameContainer} ref={gamesContainerRef}>
+      <div className={styles.gameContainer}>
         {games.map((game, index) => (
           <GameCard
             key={game.title}
@@ -71,8 +55,8 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
             setSum={setSum}
             sum={sum}
             run={run}
-            runAnimation={runAnimation}
-            delay={index * ANIMATION_TIME}
+            runAnimation={game.animation}
+            winner={game.winner}
           />
         ))}
       </div>

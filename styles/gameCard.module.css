@@ -6,6 +6,7 @@
   height: 25rem;
   border-radius: 0.5rem;
   margin: 1rem;
+  transition: filter ease 50ms, transform ease 200ms;
 }
 .title,
 .status {
@@ -32,20 +33,19 @@
 }
 
 .cardAnimation {
-  filter: brightness(40%);
+  filter: brightness(20%);
 }
 
-@keyframes cardSelected {
-  0% {
-    filter: brightness(40%);
-  }
-  25% {
-    filter: brightness(100%);
-  }
-  75% {
-    filter: brightness(100%);
-  }
-  100% {
-    filter: brightness(40%);
-  }
+.winner {
+  filter: brightness(100%);
+  transform: scale(1.1);
+}
+
+.looser {
+  filter: brightness(20%);
+  transform: scale(0.9);
+}
+
+.runAnimation {
+  filter: brightness(80%);
 }

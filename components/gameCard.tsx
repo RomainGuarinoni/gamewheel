@@ -1,7 +1,8 @@
 import style from '../styles/gameCard.module.css';
 import Slider from './slider';
 import Image from 'next/image';
-import { ANIMATION_TIME } from '../utils/animation';
+import { useEffect } from 'react';
+import { WinnerState } from 'utils/animation';
 
 enum Status {
   highProbabilty = 'highProbabilty',
@@ -18,7 +19,7 @@ export default function gameCard({
   sum,
   run,
   runAnimation,
-  delay,
+  winner,
 }: {
   title: string;
   value: number;
@@ -28,20 +29,20 @@ export default function gameCard({
   sum: number;
   run: boolean;
   runAnimation: boolean;
-  delay: number;
+  winner: WinnerState;
 }): JSX.Element {
   const proba = (value / sum) * 100;
-  runAnimation ? console.log('run animation haqs changed to true') : null;
+
+  useEffect(() => {
+    if (winner) {
+      console.log(title);
+    }
+  }, [winner]);
   return (
     <div
-      className={`${style.container} ${run ? style.cardAnimation : ''}`}
-      style={
-        runAnimation
-          ? {
-              animation: `${style.cardSelected} ${ANIMATION_TIME}s ease ${delay}s `,
-            }
-          : {}
-      }
+      className={`${style.container} ${run ? style.cardAnimation : ''} ${
+        runAnimation ? style.runAnimation : ''
+      } ${setWinnerState(winner)}`}
     >
       <h2 className={style.title}>{title}</h2>
       <div className={style.image}>
@@ -77,4 +78,14 @@ function setNewProba(
 ) {
   setSum(sum + (newValue - previousValue));
   setValue(newValue);
+}
+
+function setWinnerState(winnerState: WinnerState) {
+  if (winnerState === WinnerState.inProgress) {
+    return '';
+  } else if (winnerState === WinnerState.winner) {
+    return style.winner;
+  } else {
+    return style.looser;
+  }
 }

@@ -21,6 +21,8 @@ export default function Index(): JSX.Element {
     }
   }, []);
 
+  //set up the animation class
+
   return (
     <div>
       <Head>

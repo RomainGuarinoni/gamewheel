@@ -1,3 +1,5 @@
+import { WinnerState } from './animation';
+
 export type Games = {
   title: string;
   default: number;
@@ -6,6 +8,8 @@ export type Games = {
   setValue?: (arg: number) => void;
   animation?: boolean;
   setAnimation?: (arg: boolean) => void;
+  winner?: WinnerState;
+  setWinner?: (arg: WinnerState) => void;
 }[];
 
 const gamesDefault: Games = [
