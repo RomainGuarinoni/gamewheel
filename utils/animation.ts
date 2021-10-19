@@ -1,8 +1,21 @@
 import { Games } from './games';
 
-export const ANIMATION_FAST_TIME = 0.1;
-
-export const ANIMATION_SLOW_TIME = 0.2;
+const ANIMATION_VERY_FAST = {
+  loop: 3,
+  timing: 0.05,
+};
+const ANIMATION_FAST = {
+  loop: 1,
+  timing: 0.1,
+};
+const ANIMATION_SLOW = {
+  loop: 1,
+  timing: 0.15,
+};
+const ANIMATION_VERY_SLOW = {
+  loop: 1,
+  timing: 0.2,
+};
 
 export enum WinnerState {
   inProgress,
@@ -38,21 +51,22 @@ async function runAllAnimation(games: Games, timing: number) {
 async function loopAnimation(
   games: Games,
   winner: Games[number],
-  loopFast: number,
-  loopSlow: number,
   setFinish: (arg: boolean) => void
 ) {
-  for (let i = 0; i < loopFast; i++) {
-    await runAllAnimation(games, ANIMATION_FAST_TIME);
+  for (let i = 0; i < ANIMATION_VERY_FAST.loop; i++) {
+    await runAllAnimation(games, ANIMATION_VERY_FAST.timing);
   }
-  for (let i = 0; i < loopSlow; i++) {
-    await runAllAnimation(games, ANIMATION_SLOW_TIME);
+  for (let i = 0; i < ANIMATION_FAST.loop; i++) {
+    await runAllAnimation(games, ANIMATION_FAST.timing);
+  }
+  for (let i = 0; i < ANIMATION_SLOW.loop; i++) {
+    await runAllAnimation(games, ANIMATION_SLOW.timing);
   }
 
   const winnerIndex = games.findIndex(({ title }) => title === winner.title);
 
   for (let i = 0; i <= winnerIndex; i++) {
-    await runAnimation(games[i].setAnimation, ANIMATION_SLOW_TIME);
+    await runAnimation(games[i].setAnimation, ANIMATION_VERY_SLOW.timing);
   }
 
   games.forEach(({ setWinner }, index) => {

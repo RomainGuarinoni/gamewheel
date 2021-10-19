@@ -40,7 +40,7 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
       const winner = findTheGameWinner(games);
 
       //run the wheel animation
-      loopAnimation(games, winner, 3, 2, setFinish);
+      loopAnimation(games, winner, setFinish);
     }
   }, [run]);
 
