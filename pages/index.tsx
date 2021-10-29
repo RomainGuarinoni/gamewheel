@@ -1,15 +1,31 @@
 import Head from 'next/head';
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import gamesDefault, { Games } from '../utils/games';
 import Loader from '../components/loader';
 import GamesPages from '../components/gamesPages';
+import type { Dispatch, SetStateAction } from 'react';
 
-export default function Index(): JSX.Element {
-  // does not work now
-  // need to add preferences
+export type UserThemeType = 'light' | 'dark';
 
+export const UserTheme = createContext<{
+  theme: UserThemeType;
+  setTheme: Dispatch<SetStateAction<'light' | 'dark'>>;
+}>({
+  theme: 'light',
+  setTheme: () => {},
+});
+
+export default function Index({
+  defaultTheme,
+}: {
+  defaultTheme: UserThemeType;
+}): JSX.Element {
+  // The initial games object
   const [games, setGames] = useState<Games>(null);
+
+  // The global theme of the app
+  const [theme, setTheme] = useState(defaultTheme);
+  const themeValue = { theme, setTheme };
 
   useEffect(() => {
     if (localStorage.getItem('games') !== null) {
@@ -21,8 +37,6 @@ export default function Index(): JSX.Element {
     }
   }, []);
 
-  //set up the animation class
-
   return (
     <div>
       <Head>
@@ -32,8 +46,10 @@ export default function Index(): JSX.Element {
         />
         <title>Game wheel</title>
       </Head>
-      {!games && <Loader />}
-      {games && <GamesPages games={games} />}
+      <UserTheme.Provider value={themeValue}>
+        {!games && <Loader />}
+        {games && <GamesPages games={games} />}
+      </UserTheme.Provider>
     </div>
   );
 }

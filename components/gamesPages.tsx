@@ -1,16 +1,22 @@
 import styles from '../styles/index.module.css';
 import RunButton from './runButton';
 import GameCard from './gameCard';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Save from './save';
+import Toggle from './toggleButton';
 import loopAnimation from '../utils/animation';
-import type { Games } from '../utils/games';
 import { WinnerState } from '../utils/animation';
+import { UserTheme } from '../pages/index';
+import type { Games } from '../utils/games';
+import type { UserThemeType } from '../pages/index';
 
 export default function GamesPages({ games }: { games: Games }): JSX.Element {
   // State for the wheel state
   const [run, setRun] = useState(false);
   const [finish, setFinish] = useState(false);
+
+  // The global app theme
+  const { theme, setTheme } = useContext(UserTheme);
 
   // initiate game card state variable
   games.forEach((game) => {
@@ -63,6 +69,9 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
         finish={finish}
         setFinish={setFinish}
       />
+      <div className={styles.toggle}>
+        <Toggle state={theme} setState={setTheme} />
+      </div>
       <div className={styles.gameContainer}>
         {games.map((game, index) => (
           <GameCard
