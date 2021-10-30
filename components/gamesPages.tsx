@@ -8,7 +8,6 @@ import loopAnimation from '../utils/animation';
 import { WinnerState } from '../utils/animation';
 import { UserTheme } from '../pages/index';
 import type { Games } from '../utils/games';
-import type { UserThemeType } from '../pages/index';
 
 export default function GamesPages({ games }: { games: Games }): JSX.Element {
   // State for the wheel state

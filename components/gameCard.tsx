@@ -1,8 +1,9 @@
 import style from '../styles/gameCard.module.css';
 import Slider from './slider';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { WinnerState } from 'utils/animation';
+import { UserTheme } from '../pages/index';
 
 enum Status {
   highProbabilty = 'highProbabilty',
@@ -32,7 +33,7 @@ export default function gameCard({
   winner: WinnerState;
 }): JSX.Element {
   const proba = (value / sum) * 100;
-
+  const { theme } = useContext(UserTheme);
   useEffect(() => {
     if (winner) {
       console.log(title);
@@ -42,9 +43,11 @@ export default function gameCard({
     <div
       className={`${style.container} ${run ? style.cardAnimation : ''} ${
         runAnimation ? style.runAnimation : ''
-      } ${setWinnerState(winner)}`}
+      } ${setWinnerState(winner)} ${
+        theme === 'light' ? style.light : style.dark
+      } `}
     >
-      <h2 className={style.title}>{title}</h2>
+      <h2 className={`${style.title} ${theme === 'light'}`}>{title}</h2>
       <div className={style.image}>
         <Image src={require(`../assets/${png}.png`)} />
       </div>

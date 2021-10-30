@@ -1,6 +1,5 @@
 .container {
   border: none;
-  box-shadow: 0px 0px 10px rgba(205, 205, 205, 0.75);
   max-width: 17rem;
   width: 80%;
   height: 25rem;
@@ -8,6 +7,17 @@
   margin: 1rem;
   transition: filter ease 50ms, transform ease 200ms;
 }
+
+.light {
+  box-shadow: 0px 0px 10px rgba(205, 205, 205, 0.75);
+  color: var(--dark);
+}
+
+.dark {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
+  color: var(--light);
+}
+
 .title,
 .status {
   text-align: center;
