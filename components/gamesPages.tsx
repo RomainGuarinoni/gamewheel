@@ -61,7 +61,9 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
   }, [finish]);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${theme === 'light' ? 'light' : 'dark'}`}
+    >
       {run && <Save />}
       <RunButton
         run={run}

@@ -5,6 +5,8 @@
   --orange: #ff9800;
   --red: #f44336;
   --black: #212121;
+  --light: #ffffff;
+  --dark: #2c2c2c;
 }
 
 body,
@@ -29,4 +31,12 @@ html {
 
 .lowProbabilty {
   color: var(--red);
+}
+
+.light {
+  background: var(--light);
+}
+
+.dark {
+  background: var(--dark);
 }

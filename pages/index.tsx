@@ -24,7 +24,8 @@ export default function Index({
   const [games, setGames] = useState<Games>(null);
 
   // The global theme of the app
-  const [theme, setTheme] = useState(defaultTheme);
+  // Change the default "light" to defaultTheme
+  const [theme, setTheme] = useState<UserThemeType>('light');
   const themeValue = { theme, setTheme };
 
   useEffect(() => {

@@ -16,3 +16,9 @@
   justify-content: space-around;
   padding: 2rem;
 }
+
+.toggle {
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+}
