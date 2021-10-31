@@ -5,9 +5,10 @@ import { useEffect, useState, useContext } from 'react';
 import Save from './save';
 import Toggle from './toggleButton';
 import loopAnimation from '../utils/animation';
-import { WinnerState } from '../utils/animation';
 import { UserTheme } from '../pages/index';
+import { WinnerState } from '../utils/animation';
 import type { Games } from '../utils/games';
+import axios from 'axios';
 
 export default function GamesPages({ games }: { games: Games }): JSX.Element {
   // State for the wheel state
@@ -46,6 +47,14 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
 
       //run the wheel animation
       loopAnimation(games, winner, setFinish);
+      axios({
+        method: 'post',
+        url: '/api/setCookie',
+        data: {
+          key: 'games',
+          value: games,
+        },
+      });
     }
   }, [run]);
 
