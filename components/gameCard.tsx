@@ -34,11 +34,7 @@ export default function gameCard({
 }): JSX.Element {
   const proba = (value / sum) * 100;
   const { theme } = useContext(UserTheme);
-  useEffect(() => {
-    if (winner) {
-      console.log(title);
-    }
-  }, [winner]);
+
   return (
     <div
       className={`${style.container} ${run ? style.cardAnimation : ''} ${

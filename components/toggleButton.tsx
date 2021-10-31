@@ -35,9 +35,7 @@ export default function toggle({
         key: 'theme',
         value: state,
       },
-    })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+    });
   }
 
   return (
