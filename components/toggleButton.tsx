@@ -32,7 +32,8 @@ export default function toggle({
       method: 'post',
       url: '/api/setCookie',
       data: {
-        theme: state,
+        key: 'theme',
+        value: state,
       },
     })
       .then((res) => console.log(res.data))
