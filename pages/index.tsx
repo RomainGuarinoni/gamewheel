@@ -3,7 +3,9 @@ import { useEffect, useState, createContext } from 'react';
 import gamesDefault, { Games } from '../utils/games';
 import Loader from '../components/loader';
 import GamesPages from '../components/gamesPages';
+import cookie from 'cookie';
 import type { Dispatch, SetStateAction } from 'react';
+import type { GetServerSideProps } from 'next';
 
 export type UserThemeType = 'light' | 'dark';
 
@@ -25,7 +27,7 @@ export default function Index({
 
   // The global theme of the app
   // Change the default "light" to defaultTheme
-  const [theme, setTheme] = useState<UserThemeType>('light');
+  const [theme, setTheme] = useState<UserThemeType>(defaultTheme || 'light');
   const themeValue = { theme, setTheme };
 
   useEffect(() => {
@@ -54,3 +56,17 @@ export default function Index({
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // Get the headers of the incoming req
+  const headers = context.req.headers.cookie;
+
+  // Parse the headers
+  const headersObject = cookie.parse(headers);
+
+  return {
+    props: {
+      defaultTheme: headersObject.theme || null,
+    },
+  };
+};
