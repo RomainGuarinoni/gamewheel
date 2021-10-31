@@ -2,6 +2,7 @@ import style from '../styles/toggle.module.css';
 import { UserThemeType } from '../pages/index';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 export default function toggle({
   state,
@@ -10,19 +11,32 @@ export default function toggle({
   state: UserThemeType;
   setState: (arg: UserThemeType) => void;
 }): JSX.Element {
-  console.log(state);
   function handleChange() {
     switch (state) {
       case 'dark':
         setState('light');
+        sendCookie('light');
         break;
       case 'light':
         setState('dark');
-
+        sendCookie('dark');
         break;
       default:
         setState('light');
+        sendCookie('light');
     }
+  }
+
+  async function sendCookie(state: UserThemeType) {
+    axios({
+      method: 'post',
+      url: '/api/setCookie',
+      data: {
+        theme: state,
+      },
+    })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   }
 
   return (
