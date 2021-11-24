@@ -4,31 +4,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 
 export default function playButton({
-  run,
-  setRun,
-  finish,
-  setFinish,
+  gameRunningStatus,
+  setGameRunningStatus,
+  wheelAnimationIsFinish,
+  setWheelAnimationIsFinish,
 }: {
-  run: boolean;
-  setRun: (arg: boolean) => void;
-  finish: boolean;
-  setFinish: (arg: boolean) => void;
+  gameRunningStatus: boolean;
+  setGameRunningStatus: (arg: boolean) => void;
+  wheelAnimationIsFinish: boolean;
+  setWheelAnimationIsFinish: (arg: boolean) => void;
 }): JSX.Element {
   function setRunToTrue() {
-    if (!run) {
-      setRun(true);
-    } else if (run && finish) {
-      setFinish(false);
+    if (!gameRunningStatus) {
+      setGameRunningStatus(true);
+    } else if (gameRunningStatus && wheelAnimationIsFinish) {
+      setWheelAnimationIsFinish(false);
     }
   }
 
   return (
     <div
-      className={`${style.button} ${run && !finish ? style.isRunning : ''}`}
+      className={`${style.button} ${
+        gameRunningStatus && !wheelAnimationIsFinish ? style.isRunning : ''
+      }`}
       onClick={setRunToTrue}
     >
-      {!finish ? (
-        <div className={`${style.icon} ${run ? style.isRunningLogo : ''}`}>
+      {!wheelAnimationIsFinish ? (
+        <div
+          className={`${style.icon} ${
+            gameRunningStatus ? style.isRunningLogo : ''
+          }`}
+        >
           <FontAwesomeIcon icon={faPlay} />
         </div>
       ) : (

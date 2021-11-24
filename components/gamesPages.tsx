@@ -11,17 +11,33 @@ import type { Games } from '../utils/games';
 
 export default function GamesPages({ games }: { games: Games }): JSX.Element {
   // State for the wheel state
-  const [run, setRun] = useState(false);
-  const [finish, setFinish] = useState(false);
+
+  // gameRunningStatus is :
+  //   - true -> when the wheel is running and the user has not restart the game yet
+  //   - false -> when the userr is changing card proba
+  const [gameRunningStatus, setGameRunningStatus] = useState(false);
+
+  // wheelAnimationIsFinish is :
+  //   - true -> When the wheel animation has ended
+  //   - false -> all other time
+  const [wheelAnimationIsFinish, setWheelAnimationIsFinish] = useState(false);
 
   // The global app theme
   const { theme, setTheme } = useContext(UserTheme);
 
   // initiate game card state variable
   games.forEach((game) => {
+    // Value is a number between 0 and 100 determine by
+    // the slider which correspond to the number of
+    // time the games will appear in the final arrray
     const [value, setValue] = useState(game?.value | game.default);
+
+    // When the animation is set to true, the card begin
+    // brighter then darker
     const [animation, setAnimation] = useState(false);
+
     const [winner, setWinner] = useState(WinnerState.inProgress);
+
     game.value = value;
     game.setValue = setValue;
     game.animation = animation;
@@ -30,8 +46,7 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
     game.setWinner = setWinner;
   });
 
-  //the sum of each value of each game
-  const [sum, setSum] = useState(
+  const [totalGamesValue, setTotalGamesValue] = useState(
     games
       .map(({ value }) => {
         return value;
@@ -40,35 +55,35 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
   );
 
   useEffect(() => {
-    if (run) {
+    if (gameRunningStatus) {
       //find a winner
       const winner = findTheGameWinner(games);
 
-      //run the wheel animation
-      loopAnimation(games, winner, setFinish);
+      //gameRunningStatus the wheel animation
+      loopAnimation(games, winner, setWheelAnimationIsFinish);
     }
-  }, [run]);
+  }, [gameRunningStatus]);
 
   useEffect(() => {
-    if (!finish) {
+    if (!wheelAnimationIsFinish) {
       games.forEach(({ setWinner, setAnimation }) => {
         setWinner(WinnerState.inProgress);
         setAnimation(false);
       });
-      setRun(false);
+      setGameRunningStatus(false);
     }
-  }, [finish]);
+  }, [wheelAnimationIsFinish]);
 
   return (
     <div
       className={`${styles.container} ${theme === 'light' ? 'light' : 'dark'}`}
     >
-      {run && <Save />}
+      {gameRunningStatus && <Save />}
       <RunButton
-        run={run}
-        setRun={setRun}
-        finish={finish}
-        setFinish={setFinish}
+        gameRunningStatus={gameRunningStatus}
+        setGameRunningStatus={setGameRunningStatus}
+        wheelAnimationIsFinish={wheelAnimationIsFinish}
+        setWheelAnimationIsFinish={setWheelAnimationIsFinish}
       />
       <div className={styles.toggle}>
         <Toggle state={theme} setState={setTheme} />
@@ -81,13 +96,13 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
             png={game.png}
             value={game.value}
             setValue={game.setValue}
-            setSum={setSum}
-            sum={sum}
-            run={run}
+            setTotalGamesValue={setTotalGamesValue}
+            totalGamesValue={totalGamesValue}
+            gameRunningStatus={gameRunningStatus}
             runAnimation={game.animation}
             winner={game.winner}
-            finish={finish}
-            setFinish={setFinish}
+            wheelAnimationIsFinish={wheelAnimationIsFinish}
+            setWheelAnimationIsFinish={setWheelAnimationIsFinish}
           />
         ))}
       </div>

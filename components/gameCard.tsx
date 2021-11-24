@@ -16,33 +16,33 @@ export default function gameCard({
   value,
   setValue,
   png,
-  setSum,
-  sum,
-  run,
+  setTotalGamesValue,
+  totalGamesValue,
+  gameRunningStatus,
   runAnimation,
   winner,
-  finish,
-  setFinish,
+  wheelAnimationIsFinish,
+  setWheelAnimationIsFinish,
 }: {
   title: string;
   value: number;
   setValue: (arg: number) => void;
   png: string;
-  setSum: (arg: number) => void;
-  sum: number;
-  run: boolean;
+  setTotalGamesValue: (arg: number) => void;
+  totalGamesValue: number;
+  gameRunningStatus: boolean;
   runAnimation: boolean;
   winner: WinnerState;
-  finish: boolean;
-  setFinish: (arg: boolean) => void;
+  wheelAnimationIsFinish: boolean;
+  setWheelAnimationIsFinish: (arg: boolean) => void;
 }): JSX.Element {
-  const proba = (value / sum) * 100;
+  const proba = (value / totalGamesValue) * 100;
   const { theme } = useContext(UserTheme);
 
   return (
     <div
       className={`${style.container} ${
-        run && !finish ? style.cardAnimation : ''
+        gameRunningStatus && !wheelAnimationIsFinish ? style.cardAnimation : ''
       } ${runAnimation ? style.runAnimation : ''} ${setWinnerState(winner)} ${
         theme === 'light' ? style.light : style.dark
       } `}
@@ -57,7 +57,15 @@ export default function gameCard({
       <Slider
         value={value}
         onChange={(e) =>
-          setNewProba(setSum, sum, value, e, setValue, finish, setFinish)
+          setNewProba(
+            setTotalGamesValue,
+            totalGamesValue,
+            value,
+            e,
+            setValue,
+            wheelAnimationIsFinish,
+            setWheelAnimationIsFinish
+          )
         }
       />
     </div>
@@ -75,19 +83,19 @@ export function getProba(proba: number): string {
 }
 
 function setNewProba(
-  setSum: (arg: number) => void,
-  sum: number,
+  setTotalGamesValue: (arg: number) => void,
+  totalGamesValue: number,
   previousValue: number,
   newValue: number,
   setValue: (arg: number) => void,
-  finish: boolean,
-  setFinish: (arg: boolean) => void
+  wheelAnimationIsFinish: boolean,
+  setWheelAnimationIsFinish: (arg: boolean) => void
 ) {
   //check if the game is over
-  if (finish) {
-    setFinish(false);
+  if (wheelAnimationIsFinish) {
+    setWheelAnimationIsFinish(false);
   }
-  setSum(sum + (newValue - previousValue));
+  setTotalGamesValue(totalGamesValue + (newValue - previousValue));
   setValue(newValue);
 }
 

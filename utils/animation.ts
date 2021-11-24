@@ -41,17 +41,17 @@ async function runAllAnimation(games: Games, timing: number) {
 
 /**
  *
- * @description Run the wheel animation
+ * @description gameRunningStatus the wheel animation
  * @param {Games} games  an array of all the games
  * @param {number} loopFast  the number of loops with fast delay
  * @param {number} loopSlow  the number of loops with slow delay
- * @param {(arg: boolean) => void} setFinish a setState function to indicate the end of the animation
+ * @param {(arg: boolean) => void} setWheelAnimationIsFinish a setState function to indicate the end of the animation
  */
 
 async function loopAnimation(
   games: Games,
   winner: Games[number],
-  setFinish: (arg: boolean) => void
+  setWheelAnimationIsFinish: (arg: boolean) => void
 ) {
   for (let i = 0; i < ANIMATION_VERY_FAST.loop; i++) {
     await runAllAnimation(games, ANIMATION_VERY_FAST.timing);
@@ -76,7 +76,7 @@ async function loopAnimation(
       setWinner(WinnerState.looser);
     }
   });
-  setFinish(true);
+  setWheelAnimationIsFinish(true);
 }
 
 export default loopAnimation;
