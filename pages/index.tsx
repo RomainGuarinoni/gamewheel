@@ -3,7 +3,6 @@ import { useEffect, useState, createContext } from 'react';
 import gamesDefault, { Games } from '../utils/games';
 import Loader from '../components/loader';
 import GamesPages from '../components/gamesPages';
-import cookie from 'cookie';
 import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps } from 'next';
 
@@ -59,14 +58,11 @@ export default function Index({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Get the headers of the incoming req
-  const headers = context.req.headers.cookie;
-
-  // Parse the headers
-  const headersObject = cookie.parse(headers);
+  const cookies = context.req.cookies;
 
   return {
     props: {
-      defaultTheme: headersObject.theme || null,
+      defaultTheme: cookies.theme || null,
     },
   };
 };
