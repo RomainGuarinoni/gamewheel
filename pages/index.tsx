@@ -39,13 +39,6 @@ export default function Index({
 
   return (
     <div>
-      <Head>
-        <link
-          href='https://fonts.googleapis.com/css2?family=Inter&display=optional'
-          rel='stylesheet'
-        />
-        <title>Game wheel</title>
-      </Head>
       <UserTheme.Provider value={themeValue}>
         {!games && <Loader />}
         {games && <GamesPages games={games} />}
