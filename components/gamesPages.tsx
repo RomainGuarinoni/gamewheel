@@ -86,6 +86,8 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
             run={run}
             runAnimation={game.animation}
             winner={game.winner}
+            finish={finish}
+            setFinish={setFinish}
           />
         ))}
       </div>

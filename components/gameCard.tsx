@@ -21,6 +21,8 @@ export default function gameCard({
   run,
   runAnimation,
   winner,
+  finish,
+  setFinish,
 }: {
   title: string;
   value: number;
@@ -31,15 +33,17 @@ export default function gameCard({
   run: boolean;
   runAnimation: boolean;
   winner: WinnerState;
+  finish: boolean;
+  setFinish: (arg: boolean) => void;
 }): JSX.Element {
   const proba = (value / sum) * 100;
   const { theme } = useContext(UserTheme);
 
   return (
     <div
-      className={`${style.container} ${run ? style.cardAnimation : ''} ${
-        runAnimation ? style.runAnimation : ''
-      } ${setWinnerState(winner)} ${
+      className={`${style.container} ${
+        run && !finish ? style.cardAnimation : ''
+      } ${runAnimation ? style.runAnimation : ''} ${setWinnerState(winner)} ${
         theme === 'light' ? style.light : style.dark
       } `}
     >
@@ -52,7 +56,9 @@ export default function gameCard({
       </p>
       <Slider
         value={value}
-        onChange={(e) => setNewProba(setSum, sum, value, e, setValue)}
+        onChange={(e) =>
+          setNewProba(setSum, sum, value, e, setValue, finish, setFinish)
+        }
       />
     </div>
   );
@@ -73,8 +79,14 @@ function setNewProba(
   sum: number,
   previousValue: number,
   newValue: number,
-  setValue: (arg: number) => void
+  setValue: (arg: number) => void,
+  finish: boolean,
+  setFinish: (arg: boolean) => void
 ) {
+  //check if the game is over
+  if (finish) {
+    setFinish(false);
+  }
   setSum(sum + (newValue - previousValue));
   setValue(newValue);
 }
