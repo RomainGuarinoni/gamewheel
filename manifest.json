@@ -1,0 +1,20 @@
+{
+    "short_name" : "GameWheel",
+    "name" : "Game Wheel",
+    "icons" : [
+        {
+            "src" : "/assets/icon_512.png",
+            "type" : "image/png",
+            "sizes" : "512x512"
+        },
+        {
+            "src" : "/assets/icon_192.png",
+            "type" : "image/png",
+            "sizes" : "192x192"
+        }
+    ],
+    "start_url" : "/",
+    "display": "standalone",
+    "description" : "A small wheel app to find a game to play",
+    "background_color" : "#2c2c2c"
+}
