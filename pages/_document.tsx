@@ -9,6 +9,9 @@ class MyDocument extends Document {
             href='https://fonts.googleapis.com/css2?family=Roboto'
             rel='stylesheet'
           />
+          <link rel='manifest' href='/manifest.json' />
+          <link rel='icon' href='/favicon.ico' />
+          <title>Game wheel</title>
         </Head>
         <body>
           <Main />

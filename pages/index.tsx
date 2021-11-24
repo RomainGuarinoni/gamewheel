@@ -5,7 +5,6 @@ import Loader from '../components/loader';
 import GamesPages from '../components/gamesPages';
 import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps } from 'next';
-
 export type UserThemeType = 'light' | 'dark';
 
 export const UserTheme = createContext<{
@@ -23,7 +22,6 @@ export default function Index({
 }): JSX.Element {
   // The initial games object
   const [games, setGames] = useState<Games>(null);
-
   // The global theme of the app
   // Change the default "light" to defaultTheme
   const [theme, setTheme] = useState<UserThemeType>(defaultTheme || 'light');
@@ -41,13 +39,6 @@ export default function Index({
 
   return (
     <div>
-      <Head>
-        <link
-          href='https://fonts.googleapis.com/css2?family=Inter&display=optional'
-          rel='stylesheet'
-        />
-        <title>Game wheel</title>
-      </Head>
       <UserTheme.Provider value={themeValue}>
         {!games && <Loader />}
         {games && <GamesPages games={games} />}
