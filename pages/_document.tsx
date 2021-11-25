@@ -11,7 +11,6 @@ class MyDocument extends Document {
           />
           <link rel='manifest' href='/manifest.json' />
           <link rel='icon' href='/favicon.ico' />
-          <title>Game wheel</title>
         </Head>
         <body>
           <Main />

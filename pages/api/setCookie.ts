@@ -23,6 +23,23 @@ export default function setCookie(req: NextApiRequest, res: NextApiResponse) {
       } else {
         return res.status(500).json('Wrong cookie value');
       }
+    case 'popUpStatus':
+      return res
+        .status(201)
+        .setHeader(
+          'Set-Cookie',
+          cookie.serialize(req.body.key, req.body.value, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            sameSite: 'strict',
+            path: '/',
+            maxAge: 432000,
+          })
+        )
+        .json({
+          msg: 'Cookie has been set',
+          value: req.body.theme,
+        });
     case 'games':
     //do smthing here
     default:

@@ -1,7 +1,7 @@
 import style from '../styles/gameCard.module.css';
 import Slider from './slider';
 import Image from 'next/image';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { WinnerState } from 'utils/animation';
 import { UserTheme } from '../pages/index';
 

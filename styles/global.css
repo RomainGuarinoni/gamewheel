@@ -1,9 +1,11 @@
 :root {
   --main: #2196f3;
   --dark-main: #01579b;
+  --dark-main-hover: #044374;
   --green: #4caf50;
   --orange: #ff9800;
   --red: #f44336;
+  --red-hover: rgb(201, 54, 44);
   --black: #212121;
   --light: #ffffff;
   --dark: #2c2c2c;
