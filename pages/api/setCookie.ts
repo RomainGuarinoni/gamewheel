@@ -14,6 +14,7 @@ export default function setCookie(req: NextApiRequest, res: NextApiResponse) {
               secure: process.env.NODE_ENV !== 'development',
               sameSite: 'strict',
               path: '/',
+              maxAge: 2147483647,
             })
           )
           .json({
