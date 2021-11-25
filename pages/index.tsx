@@ -39,18 +39,17 @@ export default function Index({
   // app installed show that the app is not installed and that
   // the user hasn't click on close
   const [displayDownloadPopup, setDisplayDownloadPopup] = useState<boolean>(
-    popUpStatus == 'false' ? false : true
+    /* popUpStatus == 'false' ? false :*/ true
   );
 
   // Initialize deferredPrompt for use later to show browser install prompt.
   let deferredPrompt: BeforeInstallPromptEvent;
 
   function installPromptFunction(e: BeforeInstallPromptEvent) {
-    // Prevent the mini-infobar from appearing on mobile
-    e.preventDefault();
-
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
+
+    console.log((e.target as any).prompt);
 
     // Update UI notify the user they can install the PWA
     // Optionally, send analytics event that PWA install promo was shown.
