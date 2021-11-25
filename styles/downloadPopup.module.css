@@ -16,7 +16,8 @@
 
 .popup {
   margin: auto;
-  width: 50rem;
+  max-width: 50rem;
+  width: 85%;
   height: 30rem;
   background-color: var(--light);
   border-radius: 2rem;
@@ -27,6 +28,7 @@
 
 .containerInfo {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   margin-top: 2rem;
   justify-content: space-around;
@@ -35,7 +37,6 @@
 }
 
 .image {
-  height: 100%;
   display: flex;
   margin-top: 2rem;
   align-items: flex-start;
@@ -86,4 +87,26 @@
 
 .close:hover {
   background-color: var(--red-hover);
+}
+
+@media all and (max-width: 557px) {
+  .popup {
+    height: 35rem;
+  }
+  .title {
+    padding: 1rem 0;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .containerInfo,
+  .image {
+    margin: 0rem 0rem;
+  }
+  .boutonBox {
+    justify-content: space-around;
+  }
+
+  .info {
+    text-align: center;
+  }
 }
