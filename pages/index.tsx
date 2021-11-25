@@ -52,19 +52,10 @@ export default function Index({
 
     // Stash the event so it can be triggered later.
     setDeferredPrompt(e);
-
-    console.log(deferredPrompt);
-
-    // Update UI notify the user they can install the PWA
-    // Optionally, send analytics event that PWA install promo was shown.
-    console.log(`'beforeinstallprompt' event was fired.`);
   }
 
   async function onInstall() {
-    console.log(deferredPrompt);
     if (deferredPrompt) {
-      console.log('\n-----PROMPT SEEMS OK----\n');
-
       deferredPrompt.prompt();
 
       // Wait for the user to respond to the prompt
@@ -78,7 +69,6 @@ export default function Index({
       // We've used the prompt, and can't use it again, throw it away
       setDeferredPrompt(null);
     } else {
-      console.log('\n-----UNDEFINED PROMPT----\n');
     }
   }
 
@@ -90,7 +80,7 @@ export default function Index({
       url: '/api/setCookie',
       data: {
         key: 'popUpStatus',
-        value: false,
+        value: 'close',
       },
     });
   }
