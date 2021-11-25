@@ -38,18 +38,22 @@ export default function Index({
   // By default set to false. It can be set to true if the browser
   // app installed show that the app is not installed and that
   // the user hasn't click on close
-  const [displayDownloadPopup, setDisplayDownloadPopup] = useState<boolean>(
-    /* popUpStatus == 'false' ? false :*/ true
-  );
+  const [displayDownloadPopup, setDisplayDownloadPopup] =
+    useState<boolean>(false);
 
   // Initialize deferredPrompt for use later to show browser install prompt.
-  let deferredPrompt: BeforeInstallPromptEvent;
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
-  function installPromptFunction(e: BeforeInstallPromptEvent) {
+  async function installPromptFunction(e) {
+    // Display the install popUp
+    if (popUpStatus !== 'close') {
+      setDisplayDownloadPopup(true);
+    }
+
     // Stash the event so it can be triggered later.
-    deferredPrompt = e;
+    setDeferredPrompt(e);
 
-    console.log((e.target as any).prompt);
+    console.log(deferredPrompt);
 
     // Update UI notify the user they can install the PWA
     // Optionally, send analytics event that PWA install promo was shown.
@@ -57,33 +61,25 @@ export default function Index({
   }
 
   async function onInstall() {
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    const { outcome } = await deferredPrompt.userChoice;
-    // Optionally, send analytics event with outcome of user choice
-    console.log(`User response to the install prompt: ${outcome}`);
-    // We've used the prompt, and can't use it again, throw it away
-    deferredPrompt = null;
-  }
+    console.log(deferredPrompt);
+    if (deferredPrompt) {
+      console.log('\n-----PROMPT SEEMS OK----\n');
 
-  function appHasBeenInstalled() {
-    // Hide the app-provided install promotion
-    setDisplayDownloadPopup(false);
+      deferredPrompt.prompt();
 
-    // Clear the deferredPrompt so it can be garbage collected
-    deferredPrompt = null;
+      // Wait for the user to respond to the prompt
+      const { outcome } = await deferredPrompt.userChoice;
 
-    // Optionally, send analytics event to indicate successful install
-    console.log('PWA was installed');
+      if (outcome === 'accepted') {
+        setDisplayDownloadPopup(false);
+        setDeferredPrompt(null);
+      }
 
-    axios({
-      method: 'post',
-      url: '/api/setCookie',
-      data: {
-        key: 'popUpStatus',
-        value: 'coucou',
-      },
-    });
+      // We've used the prompt, and can't use it again, throw it away
+      setDeferredPrompt(null);
+    } else {
+      console.log('\n-----UNDEFINED PROMPT----\n');
+    }
   }
 
   async function onClose() {
@@ -111,17 +107,12 @@ export default function Index({
 
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) =>
-      installPromptFunction(e as BeforeInstallPromptEvent)
+      installPromptFunction(e)
     );
 
     return window.removeEventListener('beforeinstallprompt', (e) =>
-      installPromptFunction(e as BeforeInstallPromptEvent)
+      installPromptFunction(e)
     );
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('appinstalled', appHasBeenInstalled);
-    return window.removeEventListener('appinstalled', appHasBeenInstalled);
   }, []);
 
   return (
