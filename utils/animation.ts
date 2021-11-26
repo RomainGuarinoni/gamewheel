@@ -3,19 +3,19 @@ import { Games } from './games';
 const ANIMATION_VERY_FAST = {
   loop: 3,
   timing: 0.05,
-};
+} as const;
 const ANIMATION_FAST = {
   loop: 1,
   timing: 0.1,
-};
+} as const;
 const ANIMATION_SLOW = {
   loop: 1,
   timing: 0.15,
-};
+} as const;
 const ANIMATION_VERY_SLOW = {
   loop: 1,
   timing: 0.2,
-};
+} as const;
 
 export enum WinnerState {
   inProgress,

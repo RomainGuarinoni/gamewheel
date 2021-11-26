@@ -6,6 +6,7 @@ import GamesPages from '../components/gamesPages';
 import DownloadPopup from '../components/downloadPopup';
 import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps } from 'next';
+import AddGame from '../components/addGame';
 import axios from 'axios';
 // import type { BeforeInstallPromptEvent } from '../beforeInstallPromptEvent';
 
@@ -40,6 +41,9 @@ export default function Index({
   // the user hasn't click on close
   const [displayDownloadPopup, setDisplayDownloadPopup] =
     useState<boolean>(false);
+
+  // State for the addGame popUp
+  const [displayAddGamePopUp, setDisplayAddGamePopUp] = useState(true);
 
   // Initialize deferredPrompt for use later to show browser install prompt.
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -127,6 +131,9 @@ export default function Index({
         )}
         {!games && <Loader />}
         {games && <GamesPages games={games} />}
+        {displayAddGamePopUp && (
+          <AddGame close={() => setDisplayAddGamePopUp(false)} />
+        )}
       </UserTheme.Provider>
     </div>
   );

@@ -4,9 +4,11 @@ import { useRef, useEffect } from 'react';
 export default function PopUp({
   children,
   onClickOutside,
+  size = 'normal',
 }: {
   children: JSX.Element;
   onClickOutside?: () => any;
+  size?: 'normal' | 'large';
 }): JSX.Element {
   const popUpRef = useRef<HTMLDivElement>();
 
@@ -19,7 +21,12 @@ export default function PopUp({
       return;
     }
 
-    onClickOutside();
+    try {
+      console.log('yeah');
+      onClickOutside();
+    } finally {
+      return;
+    }
   }
 
   useEffect(() => {
@@ -29,8 +36,13 @@ export default function PopUp({
   }, []);
 
   return (
-    <div className={style.container}>
-      <div className={style.popup} ref={popUpRef}>
+    <div className={`${style.container} `}>
+      <div
+        className={`${style.popup} ${
+          size === 'normal' ? style.normal : style.large
+        }`}
+        ref={popUpRef}
+      >
         {children}
       </div>
     </div>
