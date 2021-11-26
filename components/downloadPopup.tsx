@@ -1,7 +1,6 @@
 import style from '../styles/downloadPopup.module.css';
 import Image from 'next/image';
-import axios from 'axios';
-
+import PopUp from './popUp';
 export default function DownloadPopup({
   onAction,
   onClose,
@@ -10,8 +9,8 @@ export default function DownloadPopup({
   onClose: (...arg: any) => void;
 }): JSX.Element {
   return (
-    <div className={style.container}>
-      <div className={style.popup}>
+    <PopUp>
+      <div className={style.container}>
         <h2 className={style.title}>Installez Game Wheel ! </h2>
         <div className={style.containerInfo}>
           <div className={style.image}>
@@ -54,6 +53,6 @@ export default function DownloadPopup({
           </div>
         </div>
       </div>
-    </div>
+    </PopUp>
   );
 }
