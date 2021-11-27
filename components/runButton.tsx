@@ -1,7 +1,6 @@
 import style from '../styles/runButton.module.css';
 import { faPlay, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
 
 export default function playButton({
   gameRunningStatus,

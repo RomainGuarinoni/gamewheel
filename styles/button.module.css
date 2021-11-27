@@ -1,0 +1,15 @@
+.button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.3rem;
+  color: var(--light);
+  margin: 0 1.5rem;
+  cursor: pointer;
+  transition: all ease 200ms;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
