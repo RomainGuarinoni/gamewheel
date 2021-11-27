@@ -106,6 +106,7 @@ export default function GamesPages({
             key={game.title}
             title={game.title}
             png={game.png}
+            type={game.type}
             value={game.value}
             setValue={game.setValue}
             setTotalGamesValue={setTotalGamesValue}

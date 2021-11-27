@@ -129,11 +129,15 @@ export default function Index({
           />
         )}
         {!games && <Loader />}
-        {games && (
+        {games && !displayAddGamePopUp && (
           <GamesPages games={games} setAddGames={setDisplayAddGamePopUp} />
         )}
         {displayAddGamePopUp && (
-          <AddGame close={() => setDisplayAddGamePopUp(false)} />
+          <AddGame
+            close={() => setDisplayAddGamePopUp(false)}
+            games={games}
+            setGames={setGames}
+          />
         )}
       </UserTheme.Provider>
     </div>

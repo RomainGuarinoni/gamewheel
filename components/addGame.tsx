@@ -3,11 +3,20 @@ import PopUp from './popUp';
 import Slider from './slider';
 import style from '../styles/addGame.module.css';
 import Button from './button';
+import { Games } from '../utils/games';
 import { useState, useEffect } from 'react';
 
 type error = { scope: 'name' | 'url'; txt: string }[];
 
-export default function AddGame({ close }: { close: () => void }): JSX.Element {
+export default function AddGame({
+  close,
+  games,
+  setGames,
+}: {
+  close: () => void;
+  games: Games;
+  setGames: (arg: Games) => void;
+}): JSX.Element {
   const [name, setName] = useState<string>('');
   const [url, setUrl] = useState<FileList[number]>(null);
   const [value, setValue] = useState(50);
@@ -15,7 +24,15 @@ export default function AddGame({ close }: { close: () => void }): JSX.Element {
 
   function uploadGame() {
     if (name && url) {
-      // dosomething
+      setGames(
+        games.concat({
+          title: name,
+          default: value,
+          png: url,
+          type: 'custom',
+        })
+      );
+      close();
     }
   }
 
@@ -65,7 +82,6 @@ export default function AddGame({ close }: { close: () => void }): JSX.Element {
                   className={style.url}
                   accept='image/*'
                   onChange={(e) => {
-                    console.log((e.target as HTMLInputElement).files[0]);
                     setUrl((e.target as HTMLInputElement).files[0]);
                   }}
                 />

@@ -16,6 +16,7 @@ export default function gameCard({
   value,
   setValue,
   png,
+  type,
   setTotalGamesValue,
   totalGamesValue,
   gameRunningStatus,
@@ -27,7 +28,8 @@ export default function gameCard({
   title: string;
   value: number;
   setValue: (arg: number) => void;
-  png: string;
+  png: string | File;
+  type: 'default' | 'custom';
   setTotalGamesValue: (arg: number) => void;
   totalGamesValue: number;
   gameRunningStatus: boolean;
@@ -49,7 +51,11 @@ export default function gameCard({
     >
       <h2 className={`${style.title} ${theme === 'light'}`}>{title}</h2>
       <div className={style.image}>
-        <Image src={require(`../assets/${png}.png`)} />
+        {type === 'default' ? (
+          <Image src={require(`../assets/${png}.png`)} />
+        ) : (
+          <Image src={URL.createObjectURL(png)} width={500} height={290} />
+        )}
       </div>
       <p className={`${style.status} ${getProba(proba)} `}>
         {Math.round(proba * 10) / 10} %
