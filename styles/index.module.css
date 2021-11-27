@@ -22,4 +22,18 @@
   position: absolute;
   top: 2rem;
   right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+@media all and (max-width: 563px) {
+  .toggle {
+    width: 100%;
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    left: 0;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

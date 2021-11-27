@@ -42,7 +42,7 @@ export default function Index({
     useState<boolean>(false);
 
   // State for the addGame popUp
-  const [displayAddGamePopUp, setDisplayAddGamePopUp] = useState(true);
+  const [displayAddGamePopUp, setDisplayAddGamePopUp] = useState(false);
 
   // Initialize deferredPrompt for use later to show browser install prompt.
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -129,7 +129,9 @@ export default function Index({
           />
         )}
         {!games && <Loader />}
-        {games && <GamesPages games={games} />}
+        {games && (
+          <GamesPages games={games} setAddGames={setDisplayAddGamePopUp} />
+        )}
         {displayAddGamePopUp && (
           <AddGame close={() => setDisplayAddGamePopUp(false)} />
         )}

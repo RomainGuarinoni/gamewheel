@@ -76,22 +76,8 @@
   height: 20%;
   width: 100%;
   display: flex;
-}
-
-.imageButton {
-  margin: auto;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.3rem;
-  color: var(--light);
-  background-color: var(--orange);
-  cursor: pointer;
-  transition: all ease 200ms;
-  font-size: 1rem;
-}
-
-.imageButton:hover {
-  background: var(--orange-hover);
+  align-items: center;
+  justify-content: center;
 }
 
 .nameContainer::after {
@@ -121,7 +107,6 @@
   flex: wrap;
 }
 
-.button,
 .urlButton {
   border: none;
   border-radius: 0.5rem;
@@ -139,25 +124,8 @@
   font-weight: normal;
 }
 
-.accept {
-  background-color: var(--green);
-}
-
-.active:hover {
-  background-color: var(--green-hover);
-}
-
-.cancel {
-  background-color: var(--red);
-}
-
-.cancel:hover {
-  background-color: var(--red-hover);
-}
-
-.disabled {
-  cursor: not-allowed;
-  background: var(--dark);
+.urlButton:hover {
+  background-color: var(--dark-main-hover);
 }
 
 .li {

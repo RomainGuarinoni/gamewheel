@@ -83,15 +83,14 @@ export default function AddGame({ close }: { close: () => void }): JSX.Element {
                   />
                 </div>
                 <div className={style.imageButtonContainer}>
-                  <button
-                    className={style.imageButton}
+                  <Button
+                    label='Remove the picture'
+                    background='orange'
                     onClick={(e) => {
                       e.preventDefault();
                       setUrl(null);
                     }}
-                  >
-                    Remove the picture
-                  </button>
+                  />
                 </div>
               </div>
             )}
@@ -104,21 +103,21 @@ export default function AddGame({ close }: { close: () => void }): JSX.Element {
           </div>
           <div className={style.right}>
             <div className={style.boutonsContainer}>
-              <button
-                className={`${style.button} ${style.accept} ${
-                  error.length !== 0 ? style.disabled : style.active
-                }`}
-                onClick={() => uploadGame()}
-              >
-                Valider
-              </button>
-              <button
-                className={`${style.button} ${style.cancel} `}
+              <Button
+                bold
+                onClick={() => {
+                  uploadGame();
+                }}
+                background='green'
+                label='Confirm'
+                disabled={error.length !== 0}
+              />
+              <Button
                 onClick={() => close()}
-              >
-                Annuler
-              </button>
-              <Button label='Upload an image' background='green' />
+                label='Cancel'
+                bold
+                background='red'
+              />
             </div>
             <ul className={style.ul}>
               {error.map(({ txt, scope }) => (

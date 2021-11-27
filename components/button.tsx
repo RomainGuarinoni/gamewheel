@@ -2,6 +2,7 @@ import { MouseEventHandler, useRef, useEffect, useState } from 'react';
 import style from '../styles/button.module.css';
 const colors = {
   main: '#2196f3',
+  mainHover: '#1c85db',
   darkMain: '#01579b',
   darkMainHover: '#044374',
   green: '#4caf50',
@@ -10,9 +11,12 @@ const colors = {
   orangeHover: '#e08a07',
   red: '#f44336',
   redHover: '#cf352a',
-  black: '212121',
+  black: '#212121',
+  blackHover: '#111111',
   light: '#fffff',
+  lightHover: '#fffff',
   dark: '#2c2c2c',
+  darkHover: '#212121',
 } as const;
 
 const colorName = [
@@ -86,6 +90,7 @@ export default function Button({
           : hover
           ? colors[`${background}Hover`]
           : colors[background],
+        fontWeight: bold ? 'bold' : 'normal',
       }}
       ref={buttonRef}
       onClick={onClick}
