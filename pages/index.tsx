@@ -8,7 +8,6 @@ import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps } from 'next';
 import AddGame from '../components/addGame';
 import axios from 'axios';
-// import type { BeforeInstallPromptEvent } from '../beforeInstallPromptEvent';
 
 export type UserThemeType = 'light' | 'dark';
 

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import PopUp from './popUp';
 import Slider from './slider';
 import style from '../styles/addGame.module.css';
+import Button from './button';
 import { useState, useEffect } from 'react';
 
 type error = { scope: 'name' | 'url'; txt: string }[];
@@ -117,6 +118,7 @@ export default function AddGame({ close }: { close: () => void }): JSX.Element {
               >
                 Annuler
               </button>
+              <Button label='Upload an image' background='green' />
             </div>
             <ul className={style.ul}>
               {error.map(({ txt, scope }) => (
