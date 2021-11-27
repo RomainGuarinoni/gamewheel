@@ -1,0 +1,28 @@
+.container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.733);
+  z-index: 10;
+  display: flex;
+}
+
+.popup {
+  margin: auto;
+  width: 85%;
+  height: 95%;
+  background-color: var(--light);
+  border-radius: 2rem;
+}
+
+.normal {
+  max-width: 50rem;
+  max-height: 30rem;
+}
+
+.large {
+  max-width: 60rem;
+  max-height: 40rem;
+}

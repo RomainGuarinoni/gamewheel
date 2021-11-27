@@ -6,8 +6,8 @@ import GamesPages from '../components/gamesPages';
 import DownloadPopup from '../components/downloadPopup';
 import type { Dispatch, SetStateAction } from 'react';
 import type { GetServerSideProps } from 'next';
+import AddGame from '../components/addGame';
 import axios from 'axios';
-// import type { BeforeInstallPromptEvent } from '../beforeInstallPromptEvent';
 
 export type UserThemeType = 'light' | 'dark';
 
@@ -22,12 +22,19 @@ export const UserTheme = createContext<{
 export default function Index({
   defaultTheme,
   popUpStatus,
+  customGamesCookie,
 }: {
   defaultTheme: UserThemeType;
   popUpStatus: string;
+  customGamesCookie: Games;
 }): JSX.Element {
   // The initial games object
   const [games, setGames] = useState<Games>(null);
+
+  // The custom games added in the cookie
+  const [customGames, setCustomGames] = useState<Games>([]);
+
+  console.log(customGames);
 
   // The global theme of the app
   // Change the default "light" to defaultTheme
@@ -40,6 +47,9 @@ export default function Index({
   // the user hasn't click on close
   const [displayDownloadPopup, setDisplayDownloadPopup] =
     useState<boolean>(false);
+
+  // State for the addGame popUp
+  const [displayAddGamePopUp, setDisplayAddGamePopUp] = useState(false);
 
   // Initialize deferredPrompt for use later to show browser install prompt.
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -85,14 +95,9 @@ export default function Index({
     });
   }
 
-  // Need to be fixed ...
   useEffect(() => {
-    if (localStorage.getItem('games') !== null) {
-      const localStorageGames = JSON.parse(localStorage.getItem('games'));
-      setGames(gamesDefault);
-    } else {
-      setGames(gamesDefault);
-    }
+    setGames(gamesDefault.concat(customGames));
+    console.log(gamesDefault.concat(customGames));
   }, []);
 
   useEffect(() => {
@@ -126,7 +131,18 @@ export default function Index({
           />
         )}
         {!games && <Loader />}
-        {games && <GamesPages games={games} />}
+        {games && !displayAddGamePopUp && (
+          <GamesPages games={games} setAddGames={setDisplayAddGamePopUp} />
+        )}
+        {displayAddGamePopUp && (
+          <AddGame
+            close={() => setDisplayAddGamePopUp(false)}
+            games={games}
+            setGames={setGames}
+            customGames={customGames}
+            setCustomGames={setCustomGames}
+          />
+        )}
       </UserTheme.Provider>
     </div>
   );
@@ -140,6 +156,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       defaultTheme: cookies.theme || null,
       popUpStatus: cookies.popUpStatus || null,
+      customGamesCookie: JSON.parse(cookies.customGamesCookie || null),
     },
   };
 };

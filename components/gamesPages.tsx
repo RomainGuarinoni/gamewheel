@@ -4,12 +4,19 @@ import GameCard from './gameCard';
 import { useEffect, useState, useContext } from 'react';
 import Save from './save';
 import Toggle from './toggleButton';
+import Button from './button';
 import loopAnimation from '../utils/animation';
 import { WinnerState } from '../utils/animation';
 import { UserTheme } from '../pages/index';
 import type { Games } from '../utils/games';
 
-export default function GamesPages({ games }: { games: Games }): JSX.Element {
+export default function GamesPages({
+  games,
+  setAddGames,
+}: {
+  games: Games;
+  setAddGames: (arg: boolean) => void;
+}): JSX.Element {
   // State for the wheel state
 
   // gameRunningStatus is :
@@ -86,6 +93,11 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
         setWheelAnimationIsFinish={setWheelAnimationIsFinish}
       />
       <div className={styles.toggle}>
+        <Button
+          label='Add'
+          background='main'
+          onClick={() => setAddGames(true)}
+        />
         <Toggle state={theme} setState={setTheme} />
       </div>
       <div className={styles.gameContainer}>
@@ -94,6 +106,7 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
             key={game.title}
             title={game.title}
             png={game.png}
+            type={game.type}
             value={game.value}
             setValue={game.setValue}
             setTotalGamesValue={setTotalGamesValue}
