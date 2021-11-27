@@ -5,6 +5,7 @@ import style from '../styles/addGame.module.css';
 import Button from './button';
 import { Games } from '../utils/games';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 type error = { scope: 'name' | 'url'; txt: string }[];
 
@@ -12,27 +13,43 @@ export default function AddGame({
   close,
   games,
   setGames,
+  customGames,
+  setCustomGames,
 }: {
   close: () => void;
   games: Games;
   setGames: (arg: Games) => void;
+  customGames: Games;
+  setCustomGames: (arg: Games) => void;
 }): JSX.Element {
   const [name, setName] = useState<string>('');
   const [url, setUrl] = useState<FileList[number]>(null);
   const [value, setValue] = useState(50);
   const [error, setError] = useState<error>([]);
 
-  function uploadGame() {
+  async function uploadGame() {
     if (name && url) {
-      setGames(
-        games.concat({
-          title: name,
-          default: value,
-          png: url,
-          type: 'custom',
-        })
-      );
+      console.log(url.stream());
+      const newGame: Games[number] = {
+        title: name,
+        default: value,
+        png: url,
+        type: 'custom',
+      };
+      setGames(games.concat(newGame));
       close();
+      setCustomGames(customGames.concat(newGame));
+
+      // axios({
+      //   method: 'post',
+      //   url: '/api/setCookie',
+      //   data: {
+      //     key: 'customGamesCookie',
+      //     value: JSON.stringify(customGames.concat(newGame)),
+      //   },
+      // });
+
+      console.log(await getBase64(url));
     }
   }
 
@@ -150,5 +167,15 @@ export default function AddGame({
   );
 }
 
-{
+async function getBase64(file: File) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    return reader.result;
+  };
+
+  // Create real error handle there
+  reader.onerror = function (error) {
+    console.log('Error: ', error);
+  };
 }

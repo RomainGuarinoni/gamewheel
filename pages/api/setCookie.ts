@@ -41,7 +41,23 @@ export default function setCookie(req: NextApiRequest, res: NextApiResponse) {
           msg: 'Cookie has been set',
           value: req.body.theme,
         });
-    case 'games':
+    case 'customGamesCookie':
+      return res
+        .status(201)
+        .setHeader(
+          'Set-Cookie',
+          cookie.serialize(req.body.key, req.body.value, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            sameSite: 'strict',
+            path: '/',
+            maxAge: 432000,
+          })
+        )
+        .json({
+          msg: 'Cookie has been set',
+          value: req.body.theme,
+        });
     //do smthing here
     default:
       return res
