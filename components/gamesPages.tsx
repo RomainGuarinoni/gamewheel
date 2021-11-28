@@ -8,7 +8,9 @@ import loopAnimation from '../utils/animation';
 import { WinnerState } from '../utils/animation';
 import { UserTheme } from '../pages/index';
 import type { Games } from '../utils/games';
-
+import Button from './button';
+import { faDice } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function GamesPages({ games }: { games: Games }): JSX.Element {
   // State for the wheel state
 
@@ -54,6 +56,12 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
       .reduce((previous, current) => previous + current)
   );
 
+  function randomizeValue() {
+    games.forEach(({ setValue }) => {
+      setValue(Math.random() * 100);
+    });
+  }
+
   useEffect(() => {
     if (gameRunningStatus) {
       //find a winner
@@ -86,6 +94,15 @@ export default function GamesPages({ games }: { games: Games }): JSX.Element {
         setWheelAnimationIsFinish={setWheelAnimationIsFinish}
       />
       <div className={styles.toggle}>
+        <Button
+          label={<FontAwesomeIcon icon={faDice} />}
+          background='main'
+          paddingHorizontal={0.8}
+          paddingVertical={0.8}
+          bold
+          onClick={() => randomizeValue()}
+        />
+
         <Toggle state={theme} setState={setTheme} />
       </div>
       <div className={styles.gameContainer}>
