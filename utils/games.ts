@@ -53,6 +53,11 @@ const gamesDefault: Games = [
     default: 20,
     png: 'theforest',
   },
+  {
+    title: 'Valheim',
+    default: 10,
+    png: 'valheim',
+  },
 ];
 
 export default gamesDefault;

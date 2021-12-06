@@ -38,7 +38,7 @@ export default function gameCard({
 }): JSX.Element {
   const proba = (value / totalGamesValue) * 100;
   const { theme } = useContext(UserTheme);
-
+  console.log(totalGamesValue);
   return (
     <div
       className={`${style.container} ${
